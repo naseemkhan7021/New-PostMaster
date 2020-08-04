@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="./prism.css">
+    <style>
+        ul.nav.justify-content-between.navbar-dark.bg-dark {
+            position: sticky;
+            top: 0;
+            left: 0;
+        }
+
+        #responceP {
+            overflow: scroll;
+            height: 20rem;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+            /* make scrollbar transparent */
+        }
+
+        .toolbar-item button {
+            color: #fff !important;
+            background-color: #0d6efd !important;
+            border-color: #0d6efd !important;
+            font-size: 1rem !important;
+        }
+
+        .mainrow {
+            background: #1313134d;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+
+        .leftcol {
+            border-right: 2px solid white;
+            max-height: 87vh;
+            overflow-y: hidden;
+        }
+
+        .rightcol {
+            border-left: 2px solid white;
+            max-height: 87vh;
+            overflow-y: hidden;
+        }
+
+        div.Mycontainer {
+            margin-left: 3rem;
+            margin-right: 3rem;
+        }
+
+        ul {
+            padding-left: unset;
+        }
+
+        ul li {
+            list-style: none;
+            display: flex;
+        }
+
+        ul li .POST {
+            color: orange;
+        }
+
+        ul li .GET {
+            color: green;
+        }
+
+        ul li .method {
+            width: 4rem;
+        }
+
+
+        ul li .urlHistory {
+            display: inline;
+            width: 9rem;
+        }
+
+        div.colomnsHight {
+            max-height: 87vh;
+            overflow-y: auto;
+        }
+
+        .deletebutton {
+            margin-left: 1rem;
+            max-width: 2.5rem;
+        }
+    </style>
+    <title>New Postman | 2 Feacturs</title>
+
+</head>
+
+<body>
+
+    <!-- navigation bar  -->
+    <ul class="nav justify-content-between navbar-dark bg-dark">
+        <li class="nav-item mx-2">
+            <h1><a class="navbar-brand" href="#">PostMaster</a></h1>
+        </li>
+        <li class="nav-item mx-2">
+            <button class="btn p-1 mr-1 btn-warning" id="Dark">DarkThem</button>
+            <button class="btn p-1 btn-warning" id="Light">LightThem</button>
+
+        </li>
+    </ul>
+
+    <div class="Mycontainer">
+
+
+        <div class="row mainrow" id="mainrowId">
+            <div class="col-md-3 leftcol">
+                <h3>History</h3>
+                <div class="container-fluid  colomnsHight">
+                    <ul id="historyList">
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 rightcol">
+                <h1>Welcome to New PostMaster</h1>
+                <br>
+                <div class="colomnsHight">
+                    <!-- Url input  -->
+                    <div class="row mb-3">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Url</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="url" placeholder="Enter Url">
+                        </div>
+                    </div>
+
+                    <!-- Requist type   -->
+                    <fieldset>
+                        <div class="row mb-3">
+                            <legend class="col-form-label col-sm-2 pt-0">Requist Type</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Rtype" value="GET" id="get"
+                                        checked>
+                                    <label class="form-check-label" for="gridRadios1">
+                                        GET
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Rtype" value="POST" id="post">
+                                    <label class="form-check-label" for="gridRadios2">
+                                        POST
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Content Type -->
+                        <div class="row mb-3">
+                            <legend class="col-form-label col-sm-2 pt-0">Content Type</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="Json" name="Ctype"
+                                        id="jsonRadio" checked>
+                                    <label class="form-check-label" for="json">
+                                        JSON
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="customParameters" name="Ctype"
+                                        id="paramRadio">
+                                    <label class="form-check-label" for="param">
+                                        Custom Parameters
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div id="jsonBox">
+                        <div class="row mb-3">
+                            <label for="Rjson" class="col-sm-2 col-form-label">Enter Requist json</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="Rjson" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- paramiter txt  -->
+                    <div id="paramsBox">
+                        <div class="row mb-3">
+                            <label for="Rtext" class="col-sm-2 col-form-label">Paramiter 1</label>
+                            <div class="col-sm-10">
+
+
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <input type="text" id='kyeParams1' class="form-control" placeholder="kye name 1"
+                                            aria-label="First name">
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="text" id='valueParams1' class="form-control"
+                                            placeholder="value name 1" aria-label="Last name">
+                                    </div>
+
+                                    <div class="col-sm-1">
+
+                                        <button class="btn btn-primary" id="add">+</button>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="moreparam">
+
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id='submit'>Submit</button>
+
+                    <div class="m-3">
+                        <pre id="responceP"
+                            placeholder="Responce hare..."><code class="language-javascript" id="responcePcode" ></code></pre>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+    <script src="./app.js"></script>
+    <script src="./prism.js"></script>
+</body>
+
+</html>
